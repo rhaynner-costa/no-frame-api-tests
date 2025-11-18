@@ -1,4 +1,4 @@
-import { buscaUsuarios } from '../request/usuarios/getUsersService';
+import { buscaUsuarios } from '../../request/usuarios/getUsersService';
 import { expect } from 'chai';
 
 describe('API Serverest - Usuários', () => {
@@ -75,7 +75,7 @@ describe('API Serverest - Usuários', () => {
   });
 
 
-  describe('smoke testing', () => {
+  describe('smoke test', () => {
     it('envia parametro email nulo', async () => {
       const { response, respBody } = await buscaUsuarios({ email: '' });
       expect(response.status).to.equal(400)
