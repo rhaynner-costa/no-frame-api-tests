@@ -1,10 +1,5 @@
 import fetch from 'node-fetch';
-import * as dotenv from 'dotenv'; // 1. Importe o dotenv
 
-// 2. Carregue as variáveis do .env
-dotenv.config();
-
-// 3. Pegue a BASE_URL do ambiente
 const BASE_URL = process.env.BASE_URL;
 
 interface BuscaUsuariosParams {
