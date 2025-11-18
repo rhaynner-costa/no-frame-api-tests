@@ -1,0 +1,48 @@
+import fetch from 'node-fetch'
+import { expect } from 'chai'
+
+interface Usuario {
+  nome: string
+  email: string
+}
+
+const BASE_URL = "https://serverest.dev"
+
+describe('API Serverest - Usuários - abordagem verbosa', () => {
+  it('deve retornar todos os usuários', async () => {
+    const response = await fetch(`${BASE_URL}/usuarios`)
+    const respBody = await response.json()
+
+    expect(response.status).to.equal(200)
+    expect(respBody.usuarios).to.be.an('array')
+    expect(respBody.usuarios).not.empty;
+  })
+
+  it('deve retornar usuário pelo email', async () => {
+    const email = 'fulano@qa.com'
+    const url = `${BASE_URL}/usuarios?email=${encodeURIComponent(email)}`
+    const response = await fetch(url)
+
+    const respBody = await response.json()
+
+    expect(response.status).to.equal(200)
+    expect(respBody.usuarios).to.be.an('array')
+    expect(respBody.usuarios).not.empty;
+    const usuarioEncontrado = respBody.usuarios?.some((u: Usuario) => u.email === email);
+    expect(usuarioEncontrado).to.be.true
+  })
+
+  it('deve retornar usuário pelo nome', async () => {
+    const nomeEsperado = 'Fulano da Silva'
+    const url = `${BASE_URL}/usuarios?nome=${encodeURIComponent(nomeEsperado)}`
+    const response = await fetch(url)
+    const respBody = await response.json()
+
+    expect(response.status).to.equal(200)
+    expect(respBody.usuarios).to.be.an('array')
+    expect(respBody.usuarios).not.empty;
+    const usuarioComNomeCorreto = respBody.usuarios.some((usuario: any) => usuario.nome === nomeEsperado);
+    expect(usuarioComNomeCorreto, `Nenhum usuário com o nome '${nomeEsperado}' foi encontrado`).to.be.true;
+  });
+
+})
