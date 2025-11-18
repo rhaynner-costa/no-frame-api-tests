@@ -1,4 +1,4 @@
-import { buscaUsuarios } from '../../request/usuarios/getUsersService';
+import { buscaUsuarios } from '../../support/request/usuarios/getUsersService';
 import { expect } from 'chai';
 
 describe('API Serverest - Usuários', () => {
